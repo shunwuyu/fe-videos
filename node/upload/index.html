@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 前端处理图片压缩及上传 -->
+  <input type="file" name="pic" id="file">
+  <script>
+  const oFile = document.getElementById('file');
+  const reader = new FileReader();
+  const img = new Image();
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  oFile.onchange = function(event) {
+    // console.log(e);
+    let file = event.target.files[0];
+    console.log(file);
+    if (file.type.indexOf("image") == 0) {
+      reader.readAsDataURL(file);
+    } else {
+      console.log('这不是一张图片')
+    }
+    
+  }
+  //已经读取到内存中了
+  reader.onload = function(e) {
+    //console.log(e.target.result);
+    // canvas -> image
+    img.src = e.target.result;
+    // document.body.appendChild(img);
+  }
+  img.onload = function() {
+    // canvas 压缩
+    let originWidth = this.width;
+    let originHeight = this.height;
+    // 图片大？ 
+    const maxWidth = 400,maxHeight = 400;
+    // 图片比例一样
+    let targetWidth = originWidth, targetHeight = originHeight;
+
+    if (originWidth >maxWidth || originHeight > maxHeight) {
+      // 需要压缩了
+      if (originWidth/originHeight > maxWidth / maxHeight) {
+        targetWidth = maxWidth;
+        //等比例
+        targetHeight = Math.round(maxWidth * (originHeight /originWidth));
+      } else {
+        targetHeight = maxHeight;
+        targetWidth = Math.round(maxHeight * (originWidth /originHeight));
+      }
+      console.log(targetWidth, targetHeight);
+    }
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
+    context.drawImage(this, 0, 0, targetWidth, targetHeight);
+    // document.body.appendChild(canvas);
+    // 二进制文件 Blob  Binary large object  post 提交
+    let url =  canvas.toDataURL("image/png");
+    var newImageData = canvas.toDataURL(fileType,param.quality);
+           //将base64转化成文件流
+           var resultFile = dataURLtoFile(newImageData,param.fileName);
+    canvas.toBlob(function(blob) {
+      // console.log(blob);
+      // 手动的发送保存文件请求
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4) { // 完成
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            console.log(response);
+          }
+        }
+      }
+      xhr.open("POST", '/upload', true);
+      // console.log(blob);
+      let formData = new FormData()
+      formData.append('image', blob)
+      // xhr.setRequestHeader("Content-type", "multipart/form-data");
+      // xhr.setRequestHeader("Content-Type", blob.type);
+      xhr.send(formData);
+    })
+  }
+  </script>
+</body>
+</html>
