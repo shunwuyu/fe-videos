@@ -1,3 +1,8 @@
+- video
+      - [node上传文件](https://v.youku.com/v_show/id_XNDMzMzE4MDUzNg==.html?spm=a2h3j.8428770.3416059.1)
+      - [canvas及file API](https://v.youku.com/v_show/id_XNDMzMzI1MDgwOA==.html?spm=a2h3j.8428770.3416059.1)
+      - [图片压缩](https://v.youku.com/v_show/id_XNDMzMzMxNDg1Ng==.html?spm=a2h3j.8428770.3416059.1)
+      
 - express 开发框架, 
   先安装， app = express()
   app.get('/', function(req, res) {
@@ -24,3 +29,4 @@
       img.src = 
   - canvas 
     处理image
+

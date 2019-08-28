@@ -1,5 +1,5 @@
 ##  this指向及指定(call, apply)
-
+[viedo](https://v.youku.com/v_show/id_XNDMzMTIyNTU1Mg==.html?spm=a2h3j.8428770.3416059.1)
 - this 并不是由定义函数时决定， 由最后的动行方式来决定的
   - 函数是普通函数，运行方式 this指向window
   - 函数作为对象的方法被运行 this指向对象本身
