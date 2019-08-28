@@ -5,6 +5,7 @@
   - this apply call
   [viedo](https://v.youku.com/v_show/id_XNDMzMTIyNTU1Mg==.html?spm=a2h3j.8428770.3416059.1)
   文章来自 
+  - instanceof 
 sunshine小小倩的[this、apply、call、bind](https://juejin.im/user/584d7a3e2f301e00572fb7fc)
 ## node
   - 图片上传 
