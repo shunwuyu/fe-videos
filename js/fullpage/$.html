@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box"></div>
+  <script>
+  function $(p1) {
+    if (typeof p1 == 'function') {
+      document.addEventListener('DOMContentLoaded', p1, false);
+    } else {
+      return document.querySelector(p1);
+    }
+    // function
+    // css querySelction
+  }
+  $(function() { 
+    // - 浏览器 DOM +CSS  优先 生成DOM树 DOMRead
+    // - js DOM 结点加事件 
+    // - 异步资源加载完毕  onLoad
+    console.log('DOM Ready'); //去执行JS
+    // 接下来浏览器将会开启新的进程， 去下载其它更耗时的资源
+    console.log($('.box'));
+  })
+  </script>
+</body>
+</html>

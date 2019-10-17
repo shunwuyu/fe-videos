@@ -1,0 +1,25 @@
+{
+  "name": "xy-cli",
+  "version": "0.1.0",
+  "description": "手写一个vue-cli - npm install -g vue-cli 安装？ 发布到npm 应用市场 - vue init webpack     vue  npm 包，    xy-cli   注册到 npm config ls -l   prefix    vue 全局的npm 包 init command   webpack 参数1  process.env[3] process.env[4] 项目名 - 脚手架   github 模板拉下来 npm 包可以做    在下载中...   进度条....   完成   异步  Promise  async await 来解决",
+  "main": "index.js",
+  "bin": {
+    "xy-cli": "./bin/www"
+  },
+  "scripts": {
+    "compile": "babel src -d dist",
+    "watch": "npm run compile -- --watch"
+  },
+  "keywords": [],
+  "author": "shunwuyu <shunwu2001@163.com> (http://github.com/shunwuyu)",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "commander": "^3.0.1",
+    "download-git-repo": "^2.0.0",
+    "inquirer": "^7.0.0",
+    "ora": "^4.0.1"
+  }
+}

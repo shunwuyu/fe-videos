@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>FullPage</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 9999;
+  }
+  .srollContainer {
+    display: none;
+    transition: all ease 1.5s;
+  }
+  .slide1{
+    background-color: red;
+  }
+  .slide2 {
+    background-color: green;
+  }
+  .slide3 {
+    background-color: yellow;
+  }
+  </style>
+  
+<body>
+ <div class="container">
+   <div class="srollContainer">
+     <div class="slide slide1"></div>
+     <div class="slide slide2"></div>
+     <div class="slide slide3"></div>
+   </div>
+ </div>
+ <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+  <script>
+  // 为页面做准备 , 页面高度 display: none
+  // 什么都不显示, .show
+  // - jquery 页面加载完成事件
+  // $()  $(fn);  dom ready事件的监听 DOMContentLoaded html css OK 
+  // JQUERY API真的很好， 简化， 兼容性很好
+  $(function() {
+    // console.log('DOM ready');
+    var $container = $('.container');
+    // console.log($container);
+    var $scroll =  $container.find('.srollContainer');
+    // container height -> scroll
+    // scroll 现实出来 
+    var height = $container.height();
+    // console.log(height);
+    var len = 3;
+    var current = 1;
+    // 所有的子业面
+    $container
+      .find('.slide')
+      .css('height', height + "px");
+    $scroll.show();
+
+    // JSON 面象对象
+    var page = {
+      isScrolling: false,  // 开关变量
+      start: 0,
+      pre: function() {
+        if (current - 1 > 0) {
+          current -= 1;
+          page.move(current);
+        }
+      },
+      next: function() {
+        // 还可以往下滑
+        
+        if ((current + 1) <= len) {
+          current += 1;
+          page.move(current);
+        }
+      },
+      move: function(index) {
+        page.isScrolling = true;
+        var di = - (index - 1)* height + 'px';
+        $scroll.css('transform', 'translateY(' + di + ')');
+      },
+      moveEnd: function() {
+        page.isScrolling = false
+      }
+    }
+
+    var mouseWheelHandle = function(event) {
+      // 向上， 还是向下？ 
+      if (page.isScrolling) return;
+      var deltaY  = event.originalEvent.deltaY;
+      console.log(deltaY);
+      if (deltaY > 0) {
+        page.next();
+      } else if (deltaY < 0) {
+        page.prev();
+      }
+    }
+
+    var keyboarHandle = function(event) {
+      if (page.isScrolling) return;
+      var key = event.keyCode || event.which;
+      switch (key) {
+        case 37:
+          page.pre();
+          break;
+        case 38:
+          page.pre();
+          break;
+        case 39:
+          page.next();
+          break;
+        case 40:
+          page.next();
+          break;
+      }
+    }
+
+    $scroll.on('webkitTransitionEnd', page.moveEnd)
+    $scroll.on('transitionEnd', page.moveEnd)
+    $(document).on('mousewheel', mouseWheelHandle);
+    $(document).on('keydown', keyboarHandle);
+
+  });
+  // window.onload = function() {
+  //   //img 
+  //   console.log('整个页面加载完成了');
+  // }
+  </script>
+</body>
+</html>

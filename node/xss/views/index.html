@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <ul id="recommend_list">
+    </ul>
+    <form id="commend_form">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="text" class="form-control" 
+          id="comment" name="comment" placeholder="评论内容">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+  
+  <script>
+  // console.log('-----');
+  const recommendList = document.getElementById('recommend_list');
+  const oForm = document.getElementById('commend_form');
+
+  fetch('/data')
+  .then(data => data.json())
+  .then(data => {
+    recommendList.innerHTML  = data.map(item => `
+      <li>${item.content}</li>
+    `).join('');
+  })
+
+  oForm.addEventListener('submit', function(event){
+    event.preventDefault();
+    let content = document.getElementById('comment').value;
+    // console.log(content);
+    fetch('/add?content=' + content)
+    .then(data => data.json())
+    .then(data => {
+      // console.log(data);
+      recommendList.innerHTML  = data.map(item => `
+      <li>${item.content}</li>
+      `).join('');
+    })
+  }, false);
+  </script>
+</body>
+</html>

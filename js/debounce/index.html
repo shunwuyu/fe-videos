@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Debounce</title>
+</head>
+<body>
+  <div>
+    <label for="unDebounce" >没有防抖的input</label>
+    <input type="text" id="unDebounce"/>
+  </div>
+  <div>
+    <label for="debounce">防抖的input</label>
+    <input type="text" id="debounce"/>
+  </div>
+  <script>
+  
+  let inputA = document.getElementById('unDebounce');
+  let inputDebounce = document.getElementById('debounce');
+  let debounceAjax = debounce(ajax, 500);
+  inputDebounce.addEventListener('keyup', function(e) {
+    //防拦的函数
+    // 最后执行的是ajax retrun Ajax() 高阶函数 
+    debounceAjax(e.target.value);
+  })
+  // 通用功能， func == ajax , delay
+  function debounce(func, delay) {
+    // 高阶函数 参数是函数， 或者返回的是函数
+    // 闭包
+    // func ajax 未来被执行， 
+    return function(args) {
+      // args 被真正执行时， 传过来的参数
+      //可以引用到 func
+      // delay 上场
+      // var that = this;
+      clearTimeout(func.id);
+      func.id = setTimeout(() => {
+        // 引用到debounce 内部
+        func.call(this, args);
+      } ,delay);
+      // func(args);
+    }
+  }
+  function ajax(content) {
+    console.log(content);
+  }
+  // search suggestion
+  // 大量的事件执行
+  inputA.addEventListener('keyup', function(e) {
+    let value = e.target.value;
+    ajax(value);
+  })
+  </script>
+</body>
+</html>

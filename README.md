@@ -8,6 +8,7 @@
   - instanceof 
 sunshine小小倩的[this、apply、call、bind](https://juejin.im/user/584d7a3e2f301e00572fb7fc)
   - Object.create()
+  - 深拷贝和浅拷贝
 ## node
   - 图片上传 
     - video

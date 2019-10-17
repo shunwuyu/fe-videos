@@ -1,0 +1,13 @@
+{
+  "name": "stylus_douban",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile_stylus": "stylus -w common.styl -o common.css",
+    "start": "live-server"
+  },
+  "keywords": [],
+  "author": "shunwuyu <shunwu2001@163.com> (http://github.com/shunwuyu)",
+  "license": "MIT"
+}
